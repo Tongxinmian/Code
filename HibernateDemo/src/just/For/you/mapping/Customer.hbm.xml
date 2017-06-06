@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+   "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="just.For.you.mapping.Customer" table="t_customer">
+		<id name="cid" column="cid">
+			<generator class="native"></generator>
+		</id>
+		<property name="cname" column="cname"></property>
+		<property name="clevel" column="clevel"></property>
+		<property name="cphone" column="cphone"></property>
+		<!-- 
+			fetch:select(默认)
+			lazy: true 延迟(默认)
+				  false 不延迟
+				  extra 极其延迟
+			batch-size: 值越大发送的语句越少
+		 -->
+		<set name="lmSet" cascade="save-update,delete" inverse="true" fetch="select" lazy="true" batch-size="10">
+			<key column="clid"></key>
+			<one-to-many class="just.For.you.mapping.LinkMan"/>
+		</set>
+	</class>
+</hibernate-mapping>
