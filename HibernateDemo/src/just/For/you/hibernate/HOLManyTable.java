@@ -13,7 +13,7 @@ import org.junit.Test;
 import just.For.you.mapping.Customer;
 import just.For.you.mapping.LinkMan;
 
-public class HOLManyTable {
+public class HQLManyTable {
 	@Test
 	public void testSelect(){
 		SessionFactory sessionFactory = null;
