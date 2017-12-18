@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- ioc入门 -->
+	 <bean id="user" class="com.tongx.User"></bean> 
+	
+	<!-- 使用静态工厂方式创建对象 -->
+	<!-- <bean id="bean1Factory" class="com.tongx.bean.Bean1Factory" factory-method="getBean1"></bean>  -->	
+	<!-- 使用实例工厂方式创建对象 -->
+		<!-- 先创建实例工厂对象 -->
+		 <!-- 
+			<bean id="bean2Factory" class="com.tongx.bean.Bean2Factory"></bean>
+			<bean id="bean2" factory-bean="bean2Factory" factory-method="getBean2"></bean>
+		 -->
+</beans>
