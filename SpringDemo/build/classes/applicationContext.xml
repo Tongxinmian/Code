@@ -1,17 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
     xsi:schemaLocation="
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	<!-- ioc入门 -->
-	 <bean id="user" class="com.tongx.User"></bean> 
+		<!-- <bean id="user" class="com.tongx.ioc.User"></bean> --> 
 	
 	<!-- 使用静态工厂方式创建对象 -->
-	<!-- <bean id="bean1Factory" class="com.tongx.bean.Bean1Factory" factory-method="getBean1"></bean>  -->	
+		<!-- <bean id="bean1Factory" class="com.tongx.bean.Bean1Factory" factory-method="getBean1"></bean>  -->	
+	
 	<!-- 使用实例工厂方式创建对象 -->
 		<!-- 先创建实例工厂对象 -->
-		 <!-- 
+		<!-- 
 			<bean id="bean2Factory" class="com.tongx.bean.Bean2Factory"></bean>
 			<bean id="bean2" factory-bean="bean2Factory" factory-method="getBean2"></bean>
+		-->
+		 
+		 
+	<!-- 使用有参数的构造注入 -->
+	 	<!-- <bean id="demo1" class="com.tongx.property.PropertyDemo1">  -->
+		 	<!-- name:PropertyDemo1对象的属性名称 -->
+		 <!--
+				<constructor-arg name="name" value="Tongx"></constructor-arg>
+			</bean>
 		 -->
+	 
+	<!-- 使用set方法注入 -->
+		 <!-- <bean id="book" class="com.tongx.property.Book"> -->
+		 	<!-- name：Book对象的属性名称 -->
+	 	 <!--
+		 	 <property name="bookname" value="Thinking in Java"></property>
+		 </bean>
+		 -->
+	 
+	<!-- 注入对象类型属性 -->
+		 <bean id="userDao" class="com.tongx.property.UserDao"></bean>
+		 <bean id="userService" class="com.tongx.property.UserService"> 
+		 	<!-- 
+		 		name: userService对象的属性名称
+		 		ref： userDao对象的bean标签id值
+		 	 -->
+		 	<property name="userDao" ref="userDao"></property>
+		 </bean> 
+	 
+	 <!-- p名称空间注入 -->
+	 	 <!-- p:pname pname为Person对象的属性名称 -->
+	 	 <!--  <bean id="person" class="com.tongx.property.Person" p:pname="tongx"></bean> -->
+	 	
+	 <!-- 复杂类型属性注入 -->
+	 	 <bean id="person1" class="com.tongx.property.Person1">
+	 	 <!-- 数组 -->
+	 	 	<property name="arrs">
+	 	 		<list>
+		 	 		<value>Tongx</value>
+		 	 		<value>Try</value>
+	 	 		</list>
+	 	 	</property>
+	 	 
+	 	 <!-- list -->
+	 	 	<property name="list">
+	 	 		<list>
+		 	 		<value>Tongx</value>
+		 	 		<value>Try</value>
+	 	 		</list>
+	 	 	</property>
+	 	 
+	 	 <!-- map -->
+	 	 	<property name="map">
+	 	 		<map>
+	 	 			<entry key="aa" value="Tongx"></entry>
+	 	 			<entry key="bb" value="Try"></entry>
+	 	 		</map>
+	 	 	</property>
+	 	 
+	 	 <!-- properties -->
+	 	 	<property name="properties">
+	 	 		<props>
+	 	 			<prop key="aa">Tongx</prop>
+	 	 			<prop key="bb">Try</prop>
+	 	 		</props>
+	 	 	</property>
+	 	 </bean>
 </beans>
+
+
+
+
+
+
+
