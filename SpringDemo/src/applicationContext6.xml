@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"> <!-- bean definitions here -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql:///Spring"></property>
+		<property name="user" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+	
+<!-- xml方式 -->
+	<!-- 配置事务管理器 -->
+	<!-- <bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean> -->
+	<!-- 配置事务增强 -->
+	<!-- <tx:advice id="txadvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			设置进行事务操作的方法匹配规则
+			<tx:method name="account*" />
+		</tx:attributes>
+	</tx:advice> -->
+	<!-- 配置切面 -->
+	<!-- <aop:config>
+		<aop:pointcut expression="execution(* com.tongx.service.OrdersService.*(..))"
+			id="pointcut1" />
+		<aop:advisor advice-ref="txadvice" pointcut-ref="pointcut1" />
+	</aop:config> -->
+
+<!-- 注解方式 -->
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<!-- 开启注解扫描 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+	<!-- 创建对象 -->
+	<bean id="ordersService" class="com.tongx.service.OrdersService">
+		<property name="ordersDao" ref="ordersDao"></property>
+	</bean>
+
+	<bean id="ordersDao" class="com.tongx.dao.OrdersDao">
+		<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+</beans>
